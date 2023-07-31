@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "965156884352",
+    "project_id": "flutterbg1",
+    "storage_bucket": "flutterbg1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:965156884352:android:35ad31d6f20f1a6c7f3b65",
+        "android_client_info": {
+          "package_name": "io.ifonix.myfirstapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "965156884352-ag089l5j6ua0ai0v65fbi5ff77oo8ldt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCReTJcn2l-0KRA-tk8EDfxurI1PsG4OIc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "965156884352-ag089l5j6ua0ai0v65fbi5ff77oo8ldt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
