@@ -1,8 +1,8 @@
-import 'dart:developer' as devtools show log;
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:myfirstapp/constant/route.dart';
+import 'package:myfirstapp/services/auth/auth_exceptions.dart';
+import 'package:myfirstapp/services/auth/auth_service.dart';
+import 'package:myfirstapp/utilities/show_error_dialog.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -57,18 +57,25 @@ class _LoginViewState extends State<LoginView> {
               final password = _password.text;
 
               try {
-                FirebaseAuth.instance.signInWithEmailAndPassword(
-                  email: email,
-                  password: password,
-                );
-                // if (mounted) return;
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                  notesRoute,
-                  (route) => false,
-                );
-              } on FirebaseAuthException catch (e) {
-                // Registration failed
-                debugPrint(e.code);
+                await AuthService.firebase()
+                    .logIn(email: email, password: password);
+
+                if (!mounted) return;
+                final user = AuthService.firebase().currentUser;
+                if (user?.isEmailVerified ?? false) {
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                    notesRoute,
+                    (route) => false,
+                  );
+                } else {
+                  Navigator.of(context).pushNamed(verifyEmailRoute);
+                }
+              } on UserNotFoundAuthException {
+                await showErrorDialog(context, "User Not Found");
+              } on WrongPasswordAuthException {
+                await showErrorDialog(context, "Wrong Credentials");
+              } on GenericAuthException {
+                await showErrorDialog(context, 'Authentication error');
               }
             },
             child: const Text('Login'),
